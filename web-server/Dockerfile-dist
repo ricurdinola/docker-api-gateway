@@ -1,0 +1,46 @@
+#Recibimos Argumentos
+ARG php_version
+
+FROM php:${php_version}
+LABEL  maintainer="ricurdinola@gmail.com"
+
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+		zip unzip libzip-dev \
+		libmcrypt-dev \
+        tzdata \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install zip
+
+RUN cp /usr/share/zoneinfo/America/Argentina/Buenos_Aires /etc/localtime
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+#Copiamos de la imagen composer a la maquina local.
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+#Seteamos el path con el directorio de composer
+RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
+
+COPY ./config/apache2/apache2.conf /etc/apache2/
+COPY ./config/apache2/sites-available/000-default.conf /etc/apache2/sites-available/
+COPY ./config/php/ /usr/local/etc/php
+COPY ./www /var/www/html
+
+WORKDIR /var/www/html
+RUN composer install
+
+RUN php artisan key:generate
+ #   && php artisan migrate \
+ #   && php artisan db:seed \
+RUN php artisan storage:link
+
+RUN chown root:www-data /var/www/html/storage -R
+RUN chmod 775 /var/www/html/storage -R
+RUN chown www-data:www-data /var/www/html/bootstrap/cache -R
+
+RUN a2enmod rewrite
+
+EXPOSE 80

@@ -1,0 +1,1 @@
+docker-compose -f docker-compose-dist.yml up -d --build
