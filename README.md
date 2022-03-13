@@ -172,7 +172,7 @@ Es por eso que agradecemos a los colaboradores que mantienen los siguientes recu
 
 <p align="right"><a href="#top">Ir al Inicio</a></p>
 
-[license-shield]: https://img.shields.io/github/license/ricurdinola/docker-api-gateway?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/ricurdinola/docker-lamp-stack?style=for-the-badge
 
 [license-url]: https://github.com/ricurdinola/docker-api-gateway/blob/main/LICENSE
 
