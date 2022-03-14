@@ -33,6 +33,8 @@ de los distintos endpoints que se pudieran definir, permitiendo homogeneizar sus
 Se encuentra desarrollado con [Laravel](https://www.laravel.com/) y [MySQL](https://www.mysql.com/)
 utilizando [Docker](https://www.docker.com) como gestor de contenedores.
 
+Posee incorporado la captura de errores y monitoreo de [Sentry](https://sentry.io/) 
+
 <p align="right"><a href="#top">Ir al Inicio</a></p>
 
 ### Descripción del Stack
@@ -40,12 +42,14 @@ utilizando [Docker](https://www.docker.com) como gestor de contenedores.
     <img src="readme/apache.png" alt="Logo" width="200" height="100">
     <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300">
     <img src="readme/composer.png" alt="Logo" width="100" height="100">
+    <img src="readme/sentry.png" alt="Logo" width="200" height="100">
 </div>
 
 El stack se compone de los siguientes elementos:
 
 * Un servidor web Apache con PHP 8. Por defecto, se utiliza la imagen oficial de PHP: php:8-apache
 * Se incorporó Laravel en su version 8.
+* Monitoreo de Errores integrado con Sentry.
 * La gestión de dependencias mediante composer se encuentra integrada al servidor web por lo que no es necesaria su instalación en el entorno local.
 * Por último, se inicia un contendor de Base de Datos: [MySQL 8.0](https://www.mysql.com/)
 
@@ -93,7 +97,7 @@ Una vez cambiado los parámetros deseados, se debe ejecutar el archivo `build.sh
 ### Configurar el .env
 Una vez finalizado la generación del contenedor, se deberá configurar la aplicación del Gateway.
 * Copiar el archivo www/.env.example a un archivo /www/.env.
-* Configurar el .env. Al menos las opciones APP_ y DB_. Tener en cuenta que si se cambiaron los nombre del contenedor MySQL se deberá modificar este archivo para apuntar al contenedor correcto.
+* Configurar el .env. Tener en cuenta que si se cambiaron los nombre del contenedor MySQL se deberá modificar este archivo para apuntar al contenedor correcto.
 * Como nos encontramos dentro del stack de docker, en DB_HOST se puede ingresar el _nombre del contenedor y el puerto real_ (no el publicado en la máquina host).
   Ej:
   `DB_CONNECTION=mysql`
@@ -102,6 +106,8 @@ Una vez finalizado la generación del contenedor, se deberá configurar la aplic
   `DB_DATABASE=laravel`
   `DB_USERNAME=user`
   `DB_PASSWORD=1234`
+
+* Incorporar la clave DSN de Sentry en el archivo .env a fin de activar la captura de errores.
 
 ### Ejecutar Comandos desde el contenedor. (dev)
 Una vez instalado y levantado los contenedores, ingresar al contenedor y ejecutar los siguientes comandos:
