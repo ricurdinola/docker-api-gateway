@@ -157,7 +157,7 @@ Ricardo Urdinola - ricurdinola@gmail.com - [Mis Repositorios](https://github.com
 
 <p align="right"><a href="#top">Ir al Inicio</a></p>
 
-## Agradacimientos
+## Agradecimientos
 El conocimiento y las herramientas se contruyen sobre la base y el trabajo de la comunidad.
 Es por eso que agradecemos a los colaboradores que mantienen los siguientes recursos.
 
