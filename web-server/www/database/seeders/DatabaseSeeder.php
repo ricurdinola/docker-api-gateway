@@ -82,6 +82,17 @@ class DatabaseSeeder extends Seeder
             )
         );
 
+        DB::table('services')->insert(
+            array(
+                'id' => 7,
+                'service_name' => "Obtener Imagen de Perro Aleatoria",
+                'description' => "Ejemplo de Ruta de Entrada con uso de parametros en URL.",
+                'method' => 'GET',
+                'in_route' => 'dogs/[:alpha:]',
+                'out_route' => 'https://dog.ceo/api/breeds/image/random'
+            )
+        );
+
         DB::insert('INSERT INTO clients_keys (`id`,`client_id`,`apikey`,`deleted_at`,`created_at`,`updated_at`) VALUES (1,1,"1234",NULL,NULL,NULL)');
 
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (1,1,1,1,NULL,NULL,NULL)');
@@ -90,5 +101,7 @@ class DatabaseSeeder extends Seeder
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (4,1,4,1,NULL,NULL,NULL)');
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (5,1,5,1,NULL,NULL,NULL)');
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (6,1,6,1,NULL,NULL,NULL)');
+        DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (7,1,7,1,NULL,NULL,NULL)');
+
     }
 }

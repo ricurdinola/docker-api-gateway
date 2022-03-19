@@ -42,7 +42,7 @@ class CheckToken
                                             on ak.client_key_id = ck.id
                                         inner join services s 
                                             on s.id = ak.services_id
-                                        where active = '1' and apikey = :apikey and s.method = :method and s.in_route = :route",
+                                        where active = '1' and apikey = :apikey and s.method = :method and :route regexp s.in_route ",
                 [   'apikey' => $apikey,
                     'method' => $method,
                     'route' => $route

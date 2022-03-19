@@ -24,7 +24,7 @@ class ApiGatewayController extends Controller
 
         //Get de In route and search for the actual out route.
         $route  = $request->path();
-        $out_route = \DB::select("select out_route from services where in_route = :route",  ['route' => $route]);
+        $out_route = \DB::select("select out_route from services where :route regexp in_route",  ['route' => $route]);
 
         if(empty($out_route)){
             return response()->json([
@@ -34,11 +34,18 @@ class ApiGatewayController extends Controller
             //return response(null, 404) -> header('Content-Type', 'application/json');
         }else
         {
+            $in_route = $out_route[0]->in_route;
             $out_route = $out_route[0]->out_route;
 
             //Get Inputs
             $parametros = $request->input();
             $bearer = $request->header('Authorization');
+
+            $pos_params = stripos($in_route, '[:alpha:]');
+            if ($pos_params !== false){
+                $url_params = substr($route,$pos_params);
+                $out_route = $out_route.'/'.$url_params;
+            }
 
             if ($request->method()==='GET'){
 

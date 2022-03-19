@@ -38,6 +38,6 @@ Route::group([
 ], function ($router) {
     Route::get('/ping',  '\App\Http\Controllers\Api\v1\PingController@ping');
     Route::post('/ping',  '\App\Http\Controllers\Api\v1\PingController@ping');
-    Route::get('{all}', '\App\Http\Controllers\Api\v1\ApiGatewayController@send' )->where('all','^(?!string1$|string2$)([a-zA-Z0-9-]+)');
-    Route::post('{all}', '\App\Http\Controllers\Api\v1\ApiGatewayController@send' )->where('all','^(?!string1$|string2$)([a-zA-Z0-9-]+)');
+    Route::get('{all}', '\App\Http\Controllers\Api\v1\ApiGatewayController@send' )->where('all','.*');
+    Route::post('{all}', '\App\Http\Controllers\Api\v1\ApiGatewayController@send' )->where('all','.*');
 });

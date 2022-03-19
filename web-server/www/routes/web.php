@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\registerController;
 
 
 /*
@@ -16,5 +15,5 @@ use App\Http\Controllers\registerController;
 */
 
 
-Route::get('{all}', '\App\Http\Controllers\GatewayController@send' )->where('all','^(?!string1$|string2$)([a-zA-Z0-9-]+)');;
-Route::post('{all}', '\App\Http\Controllers\GatewayController@send' )->where('all','^(?!string1$|string2$)([a-zA-Z0-9-]+)');;
+Route::get('{all}', '\App\Http\Controllers\GatewayController@send' )->where('all','.*');;
+Route::post('{all}', '\App\Http\Controllers\GatewayController@send' )->where('all','.*');;
