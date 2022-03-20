@@ -137,6 +137,7 @@ Para la administración de la configuración, se deberá ingresar al contenedor 
 Los comandos disponibles se encuentran bajo el grupo gateway:
 
 * `gateway:createService` => Inicia el proceso de registrar un servicio. Se solicita el ingreso de los datos de manera interactiva.
+  * Si el endpoint debe recibir parámetros por URL (Ej. `/servicio/{param1}/{param2}`), se deberá especificar de la siguiente manera: `servicio/[:alpha:]`. La cadena _[:alpha:]_ indica el inicio de la sección de parámetros. En este caso, dichos parámetros son reenviados al out_route de manera automática, por lo que no es necesario especificarlos. Se puede ver el servicio preconfigurado _/dogs_ como ejemplo.
 * `gateway:showServices` => Lista los servicios registrados y que pueden ser consumidos.
 * `gateway:createClient {name}` => Da de alta un cliente. Es obligatorio pasarle un nombre.
 * `gateway:showClients` => Lista los clientes registrados en el api gateway.
