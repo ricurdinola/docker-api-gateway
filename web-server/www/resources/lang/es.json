@@ -1,0 +1,4 @@
+{
+  "The provided password does not match your current password.": "La contraseña ingresada no coincide con la contraseña actual.",
+  "The :attribute must be at least :length characters.": "Se requieren al menos :length caracteres. "
+}

@@ -6,25 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'loginExt','register','getUserById']]);
         $this->middleware('token');
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login()
     {
         $credentials = request(['email', 'password']);
@@ -47,23 +38,11 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function me()
     {
-        //auth()->user()->givePermissionTo('rrhh_consulta_asistencia');
-        //return response()->json(User::with('permissions')->get());
         return response()->json(auth()->user());
     }
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function logout()
     {
         auth()->logout();
@@ -71,23 +50,11 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     protected function respondWithToken($token)
     {
         return response()->json([
@@ -111,7 +78,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'password' => User::passwordRules(),
         ]);
 
         $data = $request->all();
@@ -132,6 +99,37 @@ class AuthController extends Controller
 
         return response()->json([
             'data' => $user
+        ],201);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = auth()->user();
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'current_password' => ['required', 'string'],
+            'password' => User::passwordRules(),
+        ])->after(function ($validator) use ($user, $input) {
+            if (! isset($input['current_password']) || ! Hash::check($input['current_password'], $user->password)) {
+                $validator->errors()->add('current_password', __('The provided password does not match your current password.'));
+            }
+        });
+
+        if ($validator->fails()) {
+            $response['status_code'] = 400;
+            $response['status'] = 'fail';
+            $response['msg'] = $validator->errors();
+
+            return $response;
+        }
+
+        $user->forceFill([
+            'password' => Hash::make($input['password']),
+        ])->save();
+
+        return response()->json([
+            'msg' => "Contraseña Modificada",
         ],201);
     }
 

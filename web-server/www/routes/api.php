@@ -31,6 +31,7 @@ Route::group([
     Route::post('me', [\App\Http\Controllers\Api\v1\AuthController::class, 'me'])->name('me');
     Route::post('getUserById', [\App\Http\Controllers\Api\v1\AuthController::class, 'getUserById'])->name('getUserById');
     Route::post('registerExtranetUser', [\App\Http\Controllers\Api\v1\RegisterController::class, 'register']);
+    Route::post('updatePassword', [\App\Http\Controllers\Api\v1\AuthController::class, 'updatePassword'])->name('updatePassword');
 });
 
 Route::group([
