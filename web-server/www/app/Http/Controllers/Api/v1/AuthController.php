@@ -103,6 +103,10 @@ class AuthController extends Controller
         ])->after(function ($validator) use ($user, $input) {
             if (! isset($input['current_password']) || ! Hash::check($input['current_password'], $user->password)) {
                 $validator->errors()->add('current_password', __('The provided password does not match your current password.'));
+            }else{
+                if(Hash::check($input['password'], $user->password)) {
+                    $validator->errors()->add('current_password', __('La contraseña ingresada debe ser distinta a la contraseña actual.'));
+                }
             }
         });
 
@@ -119,6 +123,8 @@ class AuthController extends Controller
         ])->save();
 
         return response()->json([
+            'status_code' => 200,
+            'status' => 'success',
             'msg' => "Contraseña Modificada",
         ],201);
     }
