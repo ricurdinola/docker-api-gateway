@@ -23,7 +23,7 @@ class GatewayController extends Controller
 
         //Get de In route and search for the actual out route.
         $route  = $request->path();
-        $out_route = \DB::select("select out_route, in_route from services where :route regexp in_route",  ['route' => $route]);
+        $out_route = \DB::select("select out_route, in_route from services where :route regexp CONCAT('^',in_route)",  ['route' => $route]);
 
         if(empty($out_route)){
             return response()->json([
@@ -53,8 +53,7 @@ class GatewayController extends Controller
                     'Authorization' => $bearer
                 ])->get($out_route,$request->input());
 
-                return response($jsonData->body(), 200)
-                    ->  header('Content-Type', 'application/json');
+                return response($jsonData->body(), 200) -> header('Content-Type', $jsonData->headers()['Content-Type'][0]);
 
             }elseif ($request->method()==='POST'){
 
@@ -65,7 +64,6 @@ class GatewayController extends Controller
                         $parametros[$clave.'[' . $i . ']'] = $adjunto;
                     }
                 }
-
 
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
