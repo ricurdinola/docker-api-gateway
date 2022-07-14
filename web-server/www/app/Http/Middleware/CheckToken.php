@@ -27,6 +27,8 @@ class CheckToken
         $apikeyEvent -> method = $method;
         $apikeyEvent -> apikey = $apikey;
         $apikeyEvent -> ip_address = $request->ip();
+        $apikeyEvent -> params = print_r($request->all(),true);
+        $apikeyEvent -> token = $request->bearerToken();
         $apikeyEvent -> save();
 
         $route = substr($request->getPathInfo(), 1);
