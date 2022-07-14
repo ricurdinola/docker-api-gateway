@@ -93,6 +93,37 @@ class DatabaseSeeder extends Seeder
             )
         );
 
+        DB::table('services')->insert(
+            array(
+                'id' => 8,
+                'service_name' => "Cambio de Contraseña",
+                'description' => "Cambia la Contraseña del usuario registrado.",
+                'method' => 'POST',
+                'in_route' => 'api/v1/auth/updatePassword',
+                'out_route' => '#'
+            )
+        );
+        DB::table('services')->insert(
+            array(
+                'id' => 9,
+                'service_name' => "Ping",
+                'description' => "Llamada de verificación de Servicio",
+                'method' => 'GET',
+                'in_route' => 'api/v1/ping',
+                'out_route' => '#'
+            )
+        );
+        DB::table('services')->insert(
+            array(
+                'id' => 10,
+                'service_name' => "Ping",
+                'description' => "Llamada de verificación de Servicio",
+                'method' => 'POST',
+                'in_route' => 'api/v1/ping',
+                'out_route' => '#'
+            )
+        );
+
         DB::insert('INSERT INTO clients_keys (`id`,`client_id`,`apikey`,`deleted_at`,`created_at`,`updated_at`) VALUES (1,1,"1234",NULL,NULL,NULL)');
 
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (1,1,1,1,NULL,NULL,NULL)');
@@ -102,6 +133,10 @@ class DatabaseSeeder extends Seeder
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (5,1,5,1,NULL,NULL,NULL)');
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (6,1,6,1,NULL,NULL,NULL)');
         DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (7,1,7,1,NULL,NULL,NULL)');
+
+        DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (8,1,8,1,NULL,NULL,NULL)');
+        DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (9,1,9,1,NULL,NULL,NULL)');
+        DB::insert('INSERT INTO api_keys (`id`,`client_key_id`,`services_id`,`active`,`deleted_at`,`created_at`,`updated_at`) VALUES (10,1,10,1,NULL,NULL,NULL)');
 
     }
 }
