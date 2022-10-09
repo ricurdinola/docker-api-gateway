@@ -18,6 +18,7 @@ class CheckToken
      */
     public function handle(Request $request, Closure $next)
     {
+
         $apikey = $request->header('X-API-KEY');
         $method = $request->method();
         $route  = $request->path();
@@ -33,8 +34,9 @@ class CheckToken
 
         $route = substr($request->getPathInfo(), 1);
 
+
         if($request->hasHeader('X-API-KEY')){
-            //die(print_r($request->input()));
+
             $usuario = DB::select("select 
                                             c.id,
                                             c.name
@@ -44,7 +46,14 @@ class CheckToken
                                             on ak.client_key_id = ck.id
                                         inner join services s 
                                             on s.id = ak.services_id
-                                        where active = '1' and apikey = :apikey and s.method = :method and :route regexp s.in_route ",
+                                        where active = '1' and apikey = :apikey and s.method = :method and :route 
+                                        regexp 
+                                          CASE
+                                                WHEN INSTR(in_route, '[:alpha:]')
+                                                THEN CONCAT('^', REPLACE(in_route, '[:alpha:]', '*'))
+                                                ELSE CONCAT('^', in_route, '$')
+                                         END
+                                     ",
                 [   'apikey' => $apikey,
                     'method' => $method,
                     'route' => $route
