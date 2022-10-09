@@ -10,7 +10,7 @@ class ApiKeysEvents extends Model
      *
      * @var array
      */
-    protected $fillable = ['in_route','method','apikey','ip_addres'];
+    protected $fillable = ['in_route','method','apikey','ip_addres', 'params'];
 
     /**
      * The attributes excluded from the model's JSON form.
