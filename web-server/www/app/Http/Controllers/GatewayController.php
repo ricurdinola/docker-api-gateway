@@ -15,8 +15,8 @@ class GatewayController extends Controller
 
     public function __construct()
     {
-        //$this->middleware('auth:api');
-        $this->middleware('token');
+        $this->middleware('apikey');
+        $this->middleware('bearer');
     }
 
     public function send(Request $request)

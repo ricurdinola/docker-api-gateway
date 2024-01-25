@@ -12,8 +12,8 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'loginExt','register','getUserById']]);
-        $this->middleware('token');
+        $this->middleware('apikey');
+        $this->middleware('bearer');
     }
 
     public function login()

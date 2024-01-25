@@ -37,6 +37,6 @@ Route::group([
 ], function ($router) {
     Route::get('/ping',  '\App\Http\Controllers\Api\v1\PingController@ping');
     Route::post('/ping',  '\App\Http\Controllers\Api\v1\PingController@ping');
-    Route::get('{all}', '\App\Http\Controllers\Api\v1\ApiGatewayController@send')->where('all', '.*');
-    Route::post('{all}', '\App\Http\Controllers\Api\v1\ApiGatewayController@send')->where('all', '.*');
+    Route::get('{all}', '\App\Http\Controllers\GatewayController@send')->where('all', '.*');
+    Route::post('{all}', '\App\Http\Controllers\GatewayController@send')->where('all', '.*');
 });

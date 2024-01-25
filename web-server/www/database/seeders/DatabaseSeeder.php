@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Permite enviar dar de alta un usuario al servicio de Autenticación",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/register',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -38,7 +39,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Permite validar las credenciales de un usuario",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/login',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -48,7 +50,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Permite renovar el token de un usuario con sesión iniciada",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/refresh',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -58,7 +61,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Expira el token asignado al usuario",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/logout',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -68,7 +72,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Permite recuperar los datos de un usuario con el token dado, verificando su validez",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/me',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -78,7 +83,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Permite obtener un usuario a partir del id solicitado",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/getUserById',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
 
@@ -89,7 +95,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Ejemplo de Ruta de Entrada con uso de parametros en URL.",
                 'method' => 'GET',
                 'in_route' => 'dogs/[:alpha:]',
-                'out_route' => 'https://dog.ceo/api/breeds/image/random'
+                'out_route' => 'https://dog.ceo/api/breeds/image/random',
+                'login'     => 'N'
             )
         );
 
@@ -100,7 +107,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Cambia la Contraseña del usuario registrado.",
                 'method' => 'POST',
                 'in_route' => 'api/v1/auth/updatePassword',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -110,7 +118,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Llamada de verificación de Servicio",
                 'method' => 'GET',
                 'in_route' => 'api/v1/ping',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
         DB::table('services')->insert(
@@ -120,7 +129,8 @@ class DatabaseSeeder extends Seeder
                 'description' => "Llamada de verificación de Servicio",
                 'method' => 'POST',
                 'in_route' => 'api/v1/ping',
-                'out_route' => '#'
+                'out_route' => '#',
+                'login'     => 'N'
             )
         );
 
